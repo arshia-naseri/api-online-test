@@ -13,7 +13,7 @@ function App() {
 
   function getCurrentCondition(){
     let cancel
-    axios.get("http://dataservice.accuweather.com/currentconditions/v1/55488?apikey=AGGlEh0AJojABzAfRuCHS7obG6AB9arV&details=true",{
+    axios.get("https://dataservice.accuweather.com/currentconditions/v1/55488?apikey=AGGlEh0AJojABzAfRuCHS7obG6AB9arV&details=true",{
       cancelToken: new axios.CancelToken(c => cancel = c)
     }).then(res => {
       setWeather(res.data[0])
@@ -24,7 +24,7 @@ function App() {
     return () => cancel()
   }
 
-  if(!load) { return ('loading still...')}
+  if(!load) { return ('loading still now...')}
 
   console.log(weather)
   return (
