@@ -24,7 +24,7 @@ function App() {
     return () => cancel()
   }
 
-  if(!load) { return ('loading ...')}
+  if(!load) { return ('loading still...')}
 
   console.log(weather)
   return (
