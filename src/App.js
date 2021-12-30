@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState, useEffect} from "react";
+import axios from "axios";
 
 function App() {
+
+  const [weather,setWeather] = useState()
+  const [load,setLoad] = useState(false)
+
+  useEffect(() =>{
+    console.log('use Effect activated')
+    getCurrentCondition()
+  },[])
+
+  function getCurrentCondition(){
+    let cancel
+    axios.get('http://dataservice.accuweather.com/currentconditions/v1/55488?apikey=AGGlEh0AJojABzAfRuCHS7obG6AB9arV&details=true',{
+      cancelToken: new axios.CancelToken(c => cancel = c)
+    }).then(res => {
+      setWeather(res.data[0])
+      setLoad(true)
+    })
+
+
+    return () => cancel()
+  }
+
+  if(!load) { return ('loading ...')}
+
+  console.log(weather)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <div>Hello world</div>
+    <div>The Tempeture is {weather.Temperature.Metric.Value}C</div>
+    </>
   );
 }
 
